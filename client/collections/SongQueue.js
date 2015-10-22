@@ -2,8 +2,6 @@
 var SongQueue = Songs.extend({
 
   initialize: function() {
-    console.log(this);
-    // this.playFirst();
     this.on('add', function(song) {
       this.saveToStorage(song);
       if (this.length === 1) {
@@ -36,7 +34,7 @@ var SongQueue = Songs.extend({
 
     var current = JSON.parse(localStorage.getItem("songQueue")) || [];
     
-    localStorage.setItem("songQueue", JSON.stringify(current.concat(song.attributes)));
+    localStorage.setItem("songQueue", JSON.stringify(current.concat(song.attributes.url)));
   }
 
 });
