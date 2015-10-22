@@ -3,7 +3,8 @@ var SongModel = Backbone.Model.extend({
   defaults: {
     "title": "",
     "artist": "",
-    "url": ""
+    "url": "",
+    "songCount" : 0
   },
   initialize: function() {
 
@@ -21,6 +22,9 @@ var SongModel = Backbone.Model.extend({
   },
   ended: function() {
     //ended is for dequing the front
+    // var plays = this.get('songCount');
+    this.set({songCount: this.get('songCount') + 1});
+    console.log(this.get('songCount'));
     this.trigger('ended', this);
   }
 
