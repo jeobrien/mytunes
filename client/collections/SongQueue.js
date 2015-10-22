@@ -10,31 +10,35 @@ var SongQueue = Songs.extend({
     }, this);
 
     this.on('dequeue', function(song) {
-      this.remove(song);
-      this.saveToStorage(song);
-    })
+      localStorage.removeItem(JSON.stringify(song));
+      if (this.at(0) === song) {
+        this.remove(song);
+        if (this.length === 0) {
+          this.trigger('stop');
+        } else {
+          this.playFirst();
+        }
+      } else {
+        this.remove(song);
+      }
+
+    }, this);
+
     this.on('ended', function(song) {
       this.shift();
-      this.saveToStorage(song);
-      console.log(song.attributes)
+      localStorage.removeItem(JSON.stringify(song));
       if (this.length > 0) {
         this.playFirst();
       }
     }, this);
 
   },
-
   playFirst: function() {
-    // console.log(this, this.at(0))
     this.models[0].play();
   },
 
-  saveToStorage: function(song) {
-    console.log("saved")
-
-    var current = JSON.parse(localStorage.getItem("songQueue")) || [];
-    
-    localStorage.setItem("songQueue", JSON.stringify(current.concat(song.attributes.url)));
+  saveToStorage: function(song) { 
+    localStorage.setItem(JSON.stringify(song), JSON.stringify(song));
   }
 
 });

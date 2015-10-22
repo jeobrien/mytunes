@@ -20,9 +20,9 @@ var SongModel = Backbone.Model.extend({
     //deque from any point in the queue
     this.trigger('dequeue', this);
   },
+  // 
   ended: function() {
     //ended is for dequing the front
-    // var plays = this.get('songCount');
     this.set({songCount: this.get('songCount') + 1});
     console.log(this.get('songCount'));
     this.trigger('ended', this);
