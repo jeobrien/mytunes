@@ -16,10 +16,12 @@ var SongModel = Backbone.Model.extend({
     this.trigger('enqueue', this);
   },
   dequeue: function() {
+    //deque from any point in the queue
     this.trigger('dequeue', this);
   },
   ended: function() {
-    this.dequeue()
+    //ended is for dequing the front
+    this.dequeue();
   } 
 
 });
